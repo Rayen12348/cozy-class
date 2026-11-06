@@ -7,11 +7,11 @@ import { icon } from '../icons.js';
 import { esc, store, today, reducedMotion } from '../util.js';
 
 const QUOTES = [
-  'Un pomodoro à la fois. 🍅',
+  'Un pomodoro à la fois.',
   'Petit à petit, l’oiseau fait son nid.',
   'Le plus dur, c’est de commencer — et tu es déjà là.',
   'Fais-le moins bien, mais fais-le.',
-  'Bois un peu d’eau ☕ (ou du thé).',
+  'Bois un peu d’eau (ou du thé).',
   'La régularité bat l’intensité.',
 ];
 
@@ -128,9 +128,9 @@ function mountStats(el) {
     const max = Math.max(4, ...days.map((d) => d.count));
     const by = Object.entries(all[today()]?.by ?? {}).map(([id, n]) => [matieres.get(id), n]).filter(([m]) => m);
     el.innerHTML = `
-      <div class="stat-big"><b>${all[today()]?.count ?? 0}</b> 🍅 aujourd'hui <span class="muted">· ${all[today()]?.minutes ?? 0} min · ${week} cette semaine</span></div>
+      <div class="stat-big"><b>${all[today()]?.count ?? 0}</b> pomodoros aujourd'hui <span class="muted">· ${all[today()]?.minutes ?? 0} min · ${week} cette semaine</span></div>
       <div class="week">${days.map((d) => `<div class="day" title="${d.count} pomodoro(s) · ${d.minutes} min"><span class="day-cell" style="--v:${d.count / max}">${d.count || ''}</span><small>${d.d.toLocaleDateString('fr-FR', { weekday: 'narrow' })}</small></div>`).join('')}</div>
-      ${by.length ? `<div class="by-m">${by.map(([m, n]) => `<span class="badge" style="--c:var(--${m.color})">${matiereEmoji(m)} ${esc(m.name)} · ${n}</span>`).join('')}</div>` : '<p class="muted small">Ouvre une matière pendant un pomodoro pour qu’il lui soit compté.</p>'}`;
+      ${by.length ? `<div class="by-m">${by.map(([m, n]) => `<span class="badge" style="--c:var(--${m.color})">${esc(m.name)} · ${n}</span>`).join('')}</div>` : '<p class="muted small">Ouvre une matière pendant un pomodoro pour qu’il lui soit compté.</p>'}`;
   };
   render();
   return pomodoro.events.on(() => {

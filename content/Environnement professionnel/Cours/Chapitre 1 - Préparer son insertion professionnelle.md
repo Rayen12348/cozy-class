@@ -30,8 +30,8 @@ La structure conseillée pour un étudiant en informatique, sur **une page** :
 6. **Activités** : clubs, bénévolat, compétitions (facultatif).
 
 > [!tip] Verbe d'action + quoi + résultat
-> ❌ « Participation au développement d'une application. »
-> ✅ « Développé une API REST en Spring Boot utilisée par 3 applications mobiles ; temps de réponse divisé par 2. »
+> À éviter : « Participation au développement d'une application. »
+> Mieux : « Développé une API REST en Spring Boot utilisée par 3 applications mobiles ; temps de réponse divisé par 2. »
 
 > [!warning] À éviter
 > Fautes d'orthographe · photo peu professionnelle · barres de compétences (« Java ████░ » ne veut rien dire) · CV de 3 pages · adresse email fantaisiste · fichier Word mal exporté → toujours envoyer un **PDF**.

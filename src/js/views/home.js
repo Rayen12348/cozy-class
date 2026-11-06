@@ -37,7 +37,7 @@ export const itemRow = (it) => {
   const m = matieres.get(it.matiere);
   return `<a class="row" href="#/n/${it.id}" style="--c:var(--${typeOf(it).color})">
     <span class="row-icon">${icon(typeOf(it).icon)}</span>
-    <span class="row-main"><span class="row-title">${esc(it.title)}</span><span class="row-sub">${m ? `${matiereEmoji(m)} ${esc(m.name)}` : 'Général'}</span></span>
+    <span class="row-main"><span class="row-title">${esc(it.title)}</span><span class="row-sub">${m ? esc(m.name) : 'Général'}</span></span>
     ${badge(it)}
     ${progress.has(it.id) ? `<span class="row-done">${icon('tick')}</span>` : ''}
   </a>`;
@@ -56,7 +56,7 @@ export function renderHome(view) {
 
   view.innerHTML = `<div class="page home">
     <header class="home-head">
-      <h1 class="hello">${greeting()}, <span class="name" contenteditable="plaintext-only" spellcheck="false" title="Clique pour changer ton prénom">${esc(name || 'toi')}</span> <span class="sparkle">✿</span></h1>
+      <h1 class="hello">${greeting()}, <span class="name" contenteditable="plaintext-only" spellcheck="false" title="Clique pour changer ton prénom">${esc(name || 'toi')}</span></h1>
       <p class="muted lead">${esc(vault.site.description ?? '')}</p>
     </header>
 
@@ -70,7 +70,7 @@ export function renderHome(view) {
           <dt>matières</dt><dd>${vault.matieres.length}</dd>
           <dt>contenu</dt><dd>${notes} notes · ${total - notes} documents</dd>
           <dt>progression</dt><dd>${done}/${total} vus${total ? ` (${Math.round((done / total) * 100)}%)` : ''}</dd>
-          <dt>pomodoros</dt><dd>${day.count ? `${'🍅'.repeat(Math.min(day.count, 8))}${day.count > 8 ? ` ×${day.count}` : ''} · ${day.minutes} min aujourd'hui` : "aucun aujourd'hui — on s'y met ?"}</dd>
+          <dt>pomodoros</dt><dd>${day.count ? `${day.count} pomodoro${day.count > 1 ? 's' : ''} · ${day.minutes} min aujourd'hui` : "aucun aujourd'hui — on s'y met ?"}</dd>
           <dt>thème</dt><dd>${esc(THEMES[current.theme].label)}</dd>
           <dt>mis à jour</dt><dd>${relTime(vault.builtAt)}</dd>
         </dl>

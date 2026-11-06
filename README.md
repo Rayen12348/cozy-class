@@ -1,4 +1,4 @@
-# cozy·class ☕
+# cozy·class
 
 A cozy study site for the class: every matière with its cours, TD, TP, corrections and résumés. It works like Obsidian (graph view, canvas boards, wikilinks) and has a study room with a pomodoro timer, lofi radio and ambient sounds. The look borrows from riced Linux desktops (rofi/waybar style, Catppuccin and friends).
 
@@ -61,7 +61,7 @@ If there's no type folder, the first word of the filename is used ("TP1 - Tri.pd
 
 | Matière note (`Analyse/Analyse.md`) | Effect |
 |---|---|
-| `icone` | emoji, e.g. `📐` |
+| `icone` | short code shown as the matière badge, e.g. `ML` |
 | `couleur` | `mauve`, `blue`, `peach`, `green`, `pink`, `teal`, `yellow`, `red`, `sky`, `lavender`, `flamingo`, `sapphire` or a hex color |
 | `prof`, `description` | shown on the matière page |
 | `ordre` | position in the bar (also sets the `Alt 1…9` shortcut) |

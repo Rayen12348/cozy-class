@@ -1,5 +1,5 @@
 ---
-icone: 🗣️
+icone: ANG
 couleur: lavender
 prof: À compléter
 description: Anglais professionnel et technique — emails, réunions, présentations et entretiens d'embauche.

@@ -108,7 +108,7 @@ Le même calcul en SQL : `df.createOrReplaceTempView("ventes")`, puis `spark.sql
 | Colonnes | des tables très larges et distribuées | Cassandra, HBase |
 | Graphes | des nœuds et des relations | Neo4j |
 
-Le choix dépend du compromis du théorème CAP (voir [[Chapitre 1 - Introduction aux systèmes répartis]]).
+Le choix dépend du théorème CAP : pendant une coupure réseau, un système réparti garde la cohérence ou la disponibilité, pas les deux.
 
 > [!abstract] À retenir
 > HDFS stocke (blocs répliqués), YARN répartit les ressources, MapReduce calcule sur disque, Spark calcule en mémoire. Transformations paresseuses, actions qui déclenchent le calcul. Fiche : [[Résumé - Big Data]].

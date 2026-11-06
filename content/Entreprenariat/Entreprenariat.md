@@ -1,5 +1,5 @@
 ---
-icone: 🚀
+icone: ENT
 couleur: flamingo
 prof: À compléter
 description: De l'idée au projet — opportunité, Business Model Canvas, Lean Startup, marché et financement.

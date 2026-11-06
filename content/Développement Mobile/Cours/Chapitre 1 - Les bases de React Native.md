@@ -27,7 +27,7 @@ import { View, Text, StyleSheet } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bonjour 👋</Text>
+      <Text style={styles.title}>Bonjour</Text>
     </View>
   );
 }

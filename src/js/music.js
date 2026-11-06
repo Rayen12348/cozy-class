@@ -66,7 +66,7 @@ export const radio = {
     } catch (e) {
       this.loading = false;
       this.playing = false;
-      toast(`Impossible de lire « ${st.name} » (${e.message || 'erreur réseau'})`, { icon: '📻' });
+      toast(`Impossible de lire « ${st.name} » (${e.message || 'erreur réseau'})`, { icon: icon('radio') });
       this.emit();
     }
   },
@@ -82,7 +82,7 @@ export const radio = {
             onReady: () => resolve(player),
             onError: (e) => {
               reject(new Error(`YouTube ${e.data}`));
-              toast(`« ${this.station.name} » est indisponible sur YouTube — essaie une autre station`, { icon: '📻' });
+              toast(`« ${this.station.name} » est indisponible sur YouTube — essaie une autre station`, { icon: icon('radio') });
               this.loading = false;
               this.playing = false;
               this.emit();

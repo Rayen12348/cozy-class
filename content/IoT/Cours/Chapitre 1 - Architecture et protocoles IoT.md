@@ -66,7 +66,7 @@ Un capteur **analogique** donne une tension qu'on lit avec un convertisseur (`an
 
 ### MQTT
 
-Le protocole le plus utilisé en IoT : léger, au-dessus de TCP, sur le modèle **publish/subscribe** — le même que les middleware à messages du [[Chapitre 1 - Introduction aux systèmes répartis|cours d'applications réparties]].
+Le protocole le plus utilisé en IoT : léger, au-dessus de TCP, sur le modèle **publish/subscribe** — le même que les middleware à messages du [[Applications réparties|cours d'applications réparties]].
 
 - Les objets **publient** sur un **topic** (`maison/salon/temperature`).
 - Les applications **s'abonnent** aux topics qui les intéressent.

@@ -24,11 +24,11 @@ Rôles : **fournisseur** (publie) · **annuaire** (référence) · **consommateu
 
 | Verbe | CRUD | Idempotent | Succès |
 |---|---|---|---|
-| `GET` | lire | ✅ | `200` |
-| `POST` | créer | ❌ | `201` + `Location` |
-| `PUT` | remplacer | ✅ | `200` / `204` |
-| `PATCH` | modifier en partie | ❌ | `200` |
-| `DELETE` | supprimer | ✅ | `204` |
+| `GET` | lire | oui | `200` |
+| `POST` | créer | non | `201` + `Location` |
+| `PUT` | remplacer | oui | `200` / `204` |
+| `PATCH` | modifier en partie | non | `200` |
+| `DELETE` | supprimer | oui | `204` |
 
 Erreurs : `400` requête invalide · `401` non authentifié · `403` interdit · `404` introuvable · `409` conflit · `500` erreur serveur.
 
@@ -48,4 +48,4 @@ Erreurs : `400` requête invalide · `401` non authentifié · `403` interdit ·
 > [!tip] Microservices
 > Un service = une responsabilité, **sa propre** base de données, un déploiement indépendant (conteneur), derrière une **API Gateway**.
 
-Cours : [[Chapitre 1 - SOA, SOAP et REST]] · TP : [[TP 1 - API REST avec Spring Boot]] · communication répartie : [[Résumé - Applications réparties]].
+Cours : [[Chapitre 1 - SOA, SOAP et REST]] · TP : [[TP 1 - API REST avec Spring Boot]] · sockets et client/serveur : [[Résumé - Séance 2 - Sockets (1)]].

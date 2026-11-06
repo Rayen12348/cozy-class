@@ -7,7 +7,7 @@ const TYPE_COLORS = { cours: 'blue', td: 'yellow', tp: 'green', correction: 'tea
 
 // Whole-vault graph: one hub per matière + one node per note/document.
 export function graphData() {
-  const nodes = vault.matieres.map((m) => ({ id: `m:${m.id}`, label: `${m.icon ? `${m.icon} ` : ''}${m.name}`, kind: 'matiere', matiere: m.id, color: m.color }));
+  const nodes = vault.matieres.map((m) => ({ id: `m:${m.id}`, label: m.name, kind: 'matiere', matiere: m.id, color: m.color }));
   const links = [];
   const seen = new Set();
   const link = (source, target, kind) => {

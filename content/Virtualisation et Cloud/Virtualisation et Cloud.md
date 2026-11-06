@@ -1,5 +1,5 @@
 ---
-icone: ☁️
+icone: VC
 couleur: sky
 prof: À compléter
 description: Hyperviseurs, conteneurs Docker, Kubernetes, et les modèles du cloud (IaaS, PaaS, SaaS).

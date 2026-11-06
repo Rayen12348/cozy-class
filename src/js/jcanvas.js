@@ -58,7 +58,7 @@ function nodeContent(n) {
   const it = n.ref && items.get(n.ref);
   if (it) return fileCard(it, n);
   const m = n.matiereRef && matieres.get(n.matiereRef);
-  if (m) return `<div class="jc-file"><div class="jc-title">${matiereEmoji(m)} ${esc(m.name)}</div><div class="jc-excerpt">${esc(m.description)}</div></div>`;
+  if (m) return `<div class="jc-file"><div class="jc-title">${esc(m.name)}</div><div class="jc-excerpt">${esc(m.description)}</div></div>`;
   if (n.src) return `<img class="jc-img" src="${n.src}" alt="" draggable="false">`;
   return `<div class="jc-file missing">${icon('file')} <span>${esc(n.file ?? 'fichier introuvable')}</span></div>`;
 }

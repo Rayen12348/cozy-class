@@ -44,7 +44,7 @@ export function renderMatiere(view, { params: [id], query }) {
         <p class="muted">${esc(m.description)}${m.prof ? ` · ${esc(m.prof)}` : ''}</p>
       </div>
       <div class="m-head-side">
-        <div class="m-progress"><div class="progress"><span style="width:${list.length ? (done / list.length) * 100 : 0}%"></span></div><small>${done}/${list.length} vus${pomos ? ` · ${pomos} 🍅` : ''}</small></div>
+        <div class="m-progress"><div class="progress"><span style="width:${list.length ? (done / list.length) * 100 : 0}%"></span></div><small>${done}/${list.length} vus${pomos ? ` · ${pomos} pomodoro${pomos > 1 ? 's' : ''}` : ''}</small></div>
       </div>
     </header>
     <nav class="tabs" role="tablist">${tabs.map((t) => `<a class="tab ${t.id === tab ? 'active' : ''}" role="tab" href="#/m/${m.id}?tab=${encodeURIComponent(t.id)}">${icon(t.icon)} ${esc(t.label)}</a>`).join('')}</nav>

@@ -3,9 +3,9 @@ import { icon } from './icons.js';
 import { chime, unlockAudio } from './audio.js';
 
 export const MODES = [
-  { id: 'focus', label: 'Focus', color: 'red', emoji: '🍅', done: 'Session terminée ! Prends une pause ☕' },
-  { id: 'short', label: 'Pause courte', color: 'green', emoji: '☕', done: 'Pause finie, on y retourne 🍅' },
-  { id: 'long', label: 'Pause longue', color: 'blue', emoji: '🌙', done: 'Grande pause terminée, bien joué ✨' },
+  { id: 'focus', label: 'Focus', color: 'red', icon: 'timer', done: 'Session terminée ! Prends une pause.' },
+  { id: 'short', label: 'Pause courte', color: 'green', icon: 'coffee', done: 'Pause finie, on y retourne.' },
+  { id: 'long', label: 'Pause longue', color: 'blue', icon: 'clock', done: 'Grande pause terminée, bien joué.' },
 ];
 export const modeOf = (id) => MODES.find((m) => m.id === id) ?? MODES[0];
 
@@ -106,9 +106,9 @@ class Pomodoro {
     this.endAt = completed && this.settings.autoStart ? Date.now() + this.remaining : null;
     if (completed) {
       if (this.settings.sound) chime(was.id === 'focus');
-      toast(was.done, { icon: was.emoji, timeout: 6000 });
+      toast(was.done, { icon: icon(was.icon), timeout: 6000 });
       if (this.settings.notify && document.hidden && 'Notification' in window && Notification.permission === 'granted') {
-        new Notification(`${was.emoji} ${was.label} terminé`, { body: was.done, silent: true });
+        new Notification(`${was.label} terminé`, { body: was.done, silent: true });
       }
     }
     this.changed();
@@ -124,7 +124,7 @@ class Pomodoro {
     this.updateTitle();
   }
   updateTitle() {
-    document.title = this.running ? `${modeOf(this.mode).emoji} ${fmtClock(this.left)} · ${this.baseTitle}` : this.baseTitle;
+    document.title = this.running ? `${fmtClock(this.left)} · ${this.baseTitle}` : this.baseTitle;
   }
 }
 
@@ -147,7 +147,7 @@ export function mountPill(el) {
 export function mountTimer(el, { compact = false } = {}) {
   el.classList.add('timer', compact ? 'compact' : 'big');
   el.innerHTML = `
-    <div class="chips seg pomo-modes">${MODES.map((m) => `<button class="chip" data-mode="${m.id}" style="--c:var(--${m.color})">${m.emoji} ${m.label}</button>`).join('')}</div>
+    <div class="chips seg pomo-modes">${MODES.map((m) => `<button class="chip" data-mode="${m.id}" style="--c:var(--${m.color})">${m.label}</button>`).join('')}</div>
     <div class="ring">
       <svg viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="54"/><circle class="ring-fg" cx="60" cy="60" r="54" pathLength="100"/></svg>
       <div class="ring-center"><div class="ring-time"></div><div class="ring-sub"></div></div>
@@ -173,11 +173,11 @@ export function mountTimer(el, { compact = false } = {}) {
     $('.ring-fg').style.strokeDashoffset = String(100 - pomodoro.progress * 100);
     $('.ring-fg').style.opacity = pomodoro.progress > 0.002 ? 1 : 0;
     $('.ring-time').textContent = fmtClock(pomodoro.left);
-    $('.ring-sub').textContent = `${m.emoji} ${m.label}`;
+    $('.ring-sub').textContent = m.label;
     $('.pomo-toggle').innerHTML = pomodoro.running ? `${icon('pause')} Pause` : `${icon('play')} ${pomodoro.progress > 0.001 ? 'Reprendre' : 'Démarrer'}`;
     const every = pomodoro.settings.longEvery;
     const filled = pomodoro.round % every || (pomodoro.round && pomodoro.mode === 'long' ? every : 0);
-    $('.rounds').innerHTML = Array.from({ length: every }, (_, i) => `<span class="${i < filled ? 'on' : ''}"></span>`).join('') + `<small>${pomodoro.round} 🍅 au total</small>`;
+    $('.rounds').innerHTML = Array.from({ length: every }, (_, i) => `<span class="${i < filled ? 'on' : ''}"></span>`).join('') + `<small>${pomodoro.round} pomodoro${pomodoro.round > 1 ? 's' : ''} au total</small>`;
   };
   update();
   return pomodoro.events.on(update);

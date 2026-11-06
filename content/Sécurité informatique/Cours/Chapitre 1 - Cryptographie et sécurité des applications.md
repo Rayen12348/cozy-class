@@ -48,7 +48,7 @@ Une **empreinte** de taille fixe calculée à partir de n'importe quelle donnée
 > - résiste aux collisions : impossible de trouver deux messages de même empreinte ;
 > - a un effet avalanche : un bit modifié change complètement l'empreinte.
 
-- ✅ SHA-256, SHA-3 · ❌ MD5 et SHA-1 (collisions connues).
+- À utiliser : SHA-256, SHA-3 · à éviter : MD5 et SHA-1 (collisions connues).
 - **HMAC** = hachage + clé secrète → prouve l'intégrité **et** l'origine d'un message.
 
 ### Stocker des mots de passe
@@ -80,11 +80,11 @@ Le **Top 10 de l'OWASP** liste les failles les plus fréquentes. Les incontourna
 ### Injection SQL
 
 ```java
-// ❌ Vulnérable : l'entrée de l'utilisateur devient du code SQL
+// Vulnérable : l'entrée de l'utilisateur devient du code SQL
 String sql = "SELECT * FROM users WHERE login = '" + login + "'";
 // avec login = ' OR '1'='1  → la requête renvoie tous les utilisateurs
 
-// ✅ Requête préparée : l'entrée reste une simple valeur
+// Correct : requête préparée : l'entrée reste une simple valeur
 PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE login = ?");
 ps.setString(1, login);
 ```

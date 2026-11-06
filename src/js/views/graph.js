@@ -19,7 +19,7 @@ export function renderGraph(view, { query }) {
       <div class="graph-panel-body">
         <input class="field" type="search" placeholder="surligner…" data-search>
         <div class="panel-sub">matières</div>
-        <div class="chips wrap">${vault.matieres.map((m) => `<button class="chip ${hiddenM.has(m.id) ? '' : 'on'}" data-m="${m.id}" style="--c:${cssColor(m.color)}">${matiereEmoji(m)} ${esc(m.name)}</button>`).join('')}</div>
+        <div class="chips wrap">${vault.matieres.map((m) => `<button class="chip ${hiddenM.has(m.id) ? '' : 'on'}" data-m="${m.id}" style="--c:${cssColor(m.color)}">${esc(m.name)}</button>`).join('')}</div>
         <div class="panel-sub">types</div>
         <div class="chips wrap">${vault.types.map((t) => `<button class="chip ${hiddenT.has(t.id) ? '' : 'on'}" data-t="${t.id}" style="--c:var(--${t.color})">${esc(t.label)}</button>`).join('')}</div>
         <div class="panel-sub">couleur par</div>

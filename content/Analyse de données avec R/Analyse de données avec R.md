@@ -1,5 +1,5 @@
 ---
-icone: 📊
+icone: R
 couleur: pink
 prof: À compléter
 description: Analyse des données avec le langage R — tidyverse, dplyr, ggplot2, statistiques et régression.

@@ -1,5 +1,5 @@
 ---
-icone: 🔐
+icone: SEC
 couleur: red
 prof: À compléter
 description: Cryptographie symétrique et asymétrique, hachage, certificats et TLS, failles web (OWASP).

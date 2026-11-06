@@ -43,8 +43,8 @@ Il fixe **ce que** le système doit faire, pas **comment**.
 7. **Planning** prévisionnel.
 
 > [!tip] Un besoin testable
-> ❌ « L'application doit être rapide. »
-> ✅ « La liste des commandes s'affiche en moins de 2 secondes pour 10 000 commandes. »
+> À éviter : « L'application doit être rapide. »
+> Mieux : « La liste des commandes s'affiche en moins de 2 secondes pour 10 000 commandes. »
 
 ## Gérer le projet avec Scrum
 

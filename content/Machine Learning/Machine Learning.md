@@ -1,5 +1,5 @@
 ---
-icone: 🤖
+icone: ML
 couleur: mauve
 prof: À compléter
 description: Apprentissage supervisé, régression et classification, évaluation des modèles — avec Python et scikit-learn.

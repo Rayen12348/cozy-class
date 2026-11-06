@@ -26,7 +26,7 @@ tags: [english]
 
 *Today I'm going to talk about…* → *Let's move on to…* → *As you can see…* → *To sum up…* → *Any questions?*
 
-Trends: *increase / rise* ↗ · *decrease / drop* ↘ · *remain stable* → · *sharply* = a lot · *slightly* = a little.
+Trends: *increase / rise* (hausse) · *decrease / drop* (baisse) · *remain stable* (stable) · *sharply* = a lot · *slightly* = a little.
 
 ## Interviews
 
@@ -37,7 +37,7 @@ Trends: *increase / rise* ↗ · *decrease / drop* ↘ · *remain stable* → ·
 
 ## Top mistakes
 
-| ❌ | ✅ |
+| Don't say | Say |
 |---|---|
 | *I have 22 years.* | *I'm 22.* |
 | *I am agree.* | *I agree.* |

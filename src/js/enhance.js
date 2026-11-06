@@ -18,7 +18,7 @@ export function enhance(root, { id = null, depth = 0 } = {}) {
     head.querySelector('button').addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(code?.innerText ?? pre.innerText);
-        toast('Code copié', { icon: '📋', timeout: 1600 });
+        toast('Code copié', { icon: icon('copy'), timeout: 1600 });
       } catch {
         toast('Copie impossible ici');
       }

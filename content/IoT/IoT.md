@@ -1,5 +1,5 @@
 ---
-icone: 📡
+icone: IOT
 couleur: sapphire
 prof: À compléter
 description: "IoT — applications et plateformes : capteurs, ESP32, réseaux, MQTT, Node-RED et sécurité des objets."

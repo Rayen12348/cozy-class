@@ -1,5 +1,5 @@
 ---
-icone: 🐘
+icone: BD
 couleur: yellow
 prof: À compléter
 description: Framework et techniques Big Data — HDFS, MapReduce, Spark (PySpark) et bases NoSQL.

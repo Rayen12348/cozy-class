@@ -30,7 +30,7 @@ export async function renderNote(view, { params: [id], query, alive }) {
   <div class="note ${it.kind !== 'note' ? 'is-file' : ''}" style="--c:${m ? cssColor(m.color) : 'var(--accent)'}">
     <article class="note-main">
       <nav class="crumbs">
-        ${m ? `<a href="#/m/${m.id}">${matiereEmoji(m)} ${esc(m.name)}</a>${icon('chevron')}<a href="#/m/${m.id}?tab=liste">${esc(t.plural)}</a>` : '<a href="#/">général</a>'}
+        ${m ? `<a href="#/m/${m.id}">${esc(m.name)}</a>${icon('chevron')}<a href="#/m/${m.id}?tab=liste">${esc(t.plural)}</a>` : '<a href="#/">général</a>'}
       </nav>
       <h1 class="note-title">${esc(it.title)}</h1>
       <div class="note-meta">

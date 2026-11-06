@@ -12,7 +12,7 @@ export function renderCanvasPage(view, { params: [id] }) {
   view.classList.add('full');
   view.innerHTML = `<div class="mview">
     <header class="canvas-head">
-      <nav class="crumbs">${m ? `<a href="#/m/${m.id}">${matiereEmoji(m)} ${esc(m.name)}</a>${icon('chevron')}` : ''}<span>${icon('canvas')} ${esc(canvas.title)}</span></nav>
+      <nav class="crumbs">${m ? `<a href="#/m/${m.id}">${esc(m.name)}</a>${icon('chevron')}` : ''}<span>${icon('canvas')} ${esc(canvas.title)}</span></nav>
     </header>
     <div class="m-body"></div>
   </div>`;

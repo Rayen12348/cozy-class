@@ -1,5 +1,5 @@
 ---
-icone: 🎓
+icone: PFE
 couleur: maroon
 prof: À compléter
 description: "Projet de fin d'études — tout le semestre 6 : cahier des charges, Scrum, conception, rapport et soutenance."

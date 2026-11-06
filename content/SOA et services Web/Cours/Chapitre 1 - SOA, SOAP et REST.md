@@ -26,7 +26,7 @@ flowchart LR
   C -- 3. appelle --> P
 ```
 
-Dans une grande entreprise, un **ESB** (*Enterprise Service Bus*) sert d'intermédiaire : routage, transformation des messages (XML ↔ JSON), sécurité, supervision. Exemples : MuleSoft, WSO2, Apache Camel.
+Dans une grande entreprise, un **ESB** (*Enterprise Service Bus*) sert d'intermédiaire : routage, transformation des messages (XML vers JSON et inversement), sécurité, supervision. Exemples : MuleSoft, WSO2, Apache Camel.
 
 ## Les services web SOAP
 
@@ -66,11 +66,11 @@ public class EtudiantService {
 
 | Verbe | Action | Exemple | Idempotent |
 |---|---|---|---|
-| `GET` | lire | `GET /etudiants/42` | ✅ |
-| `POST` | créer | `POST /etudiants` | ❌ |
-| `PUT` | remplacer | `PUT /etudiants/42` | ✅ |
-| `PATCH` | modifier en partie | `PATCH /etudiants/42` | ❌ (en général) |
-| `DELETE` | supprimer | `DELETE /etudiants/42` | ✅ |
+| `GET` | lire | `GET /etudiants/42` | oui |
+| `POST` | créer | `POST /etudiants` | non |
+| `PUT` | remplacer | `PUT /etudiants/42` | oui |
+| `PATCH` | modifier en partie | `PATCH /etudiants/42` | non (en général) |
+| `DELETE` | supprimer | `DELETE /etudiants/42` | oui |
 
 > [!tip] De bonnes URI
 > Des **noms au pluriel**, pas de verbes : `/etudiants/42/notes`, pas `/getNotesEtudiant?id=42`.
@@ -126,7 +126,7 @@ Le contrat d'une API REST se décrit avec **OpenAPI** (anciennement Swagger) ; `
 
 ## Des services aux microservices
 
-Les **microservices** poussent la SOA plus loin : chaque service est **petit**, possède **sa propre base de données**, se déploie seul (souvent dans un conteneur — voir [[Chapitre 1 - Virtualisation et conteneurs]]) et communique par REST ou par messages (voir le [[Chapitre 1 - Introduction aux systèmes répartis|middleware orienté messages]]). Une **API Gateway** sert de porte d'entrée unique.
+Les **microservices** poussent la SOA plus loin : chaque service est **petit**, possède **sa propre base de données**, se déploie seul (souvent dans un conteneur — voir [[Chapitre 1 - Virtualisation et conteneurs]]) et communique par REST ou par messages (voir le [[Applications réparties|intergiciels orientés messages]]). Une **API Gateway** sert de porte d'entrée unique.
 
 > [!abstract] À retenir
 > SOA = services autonomes + contrats standard + couplage faible. SOAP = XML + WSDL, très outillé. REST = ressources + verbes HTTP + JSON, sans état. Sécuriser avec HTTPS et des jetons (voir le [[Chapitre 1 - Cryptographie et sécurité des applications|cours de sécurité]]). Fiche : [[Résumé - Services Web]].

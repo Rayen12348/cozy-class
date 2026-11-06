@@ -85,7 +85,7 @@ The French version of this preparation is in [[Chapitre 1 - Préparer son insert
 
 ## 6. Common mistakes made by French speakers
 
-| ❌ Don't say | ✅ Say |
+| Don't say | Say |
 |---|---|
 | *I have 22 years.* | *I am 22 (years old).* |
 | *I am agree.* | *I agree.* |

@@ -1,5 +1,5 @@
 ---
-icone: 📱
+icone: MOB
 couleur: green
 prof: À compléter
 description: Applications Android et iOS avec React Native et Expo — composants, état, navigation, API et stockage.
