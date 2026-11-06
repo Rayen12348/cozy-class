@@ -112,7 +112,7 @@ Les 5 caractéristiques : libre-service à la demande · large accès réseau ·
 - **Hybride** : un mélange des deux, par exemple les données sensibles en privé et les pics de charge en public.
 - **Communautaire** : partagé entre organisations d'un même secteur.
 
-Le cloud est aussi la plateforme naturelle du [[Big Data]] (stockage objet, clusters Spark à la demande) et de l'IoT ([[Chapitre 1 - Architecture et protocoles IoT]]).
+Le cloud est aussi la plateforme naturelle du [[Big Data]] (stockage objet, clusters Spark à la demande) et de l'IoT (AWS IoT Core, DynamoDB, Kinesis : voir [[Résumé - IoT#Module 6 — Cloud AWS pour l'IoT|le résumé d'IoT, module 6]]).
 
 > [!abstract] À retenir
 > VM = un OS complet sur un hyperviseur ; conteneur = une application isolée, noyau partagé. Docker construit et lance, Kubernetes orchestre. Cloud : IaaS / PaaS / SaaS, public / privé / hybride, élasticité et paiement à l'usage. Fiche : [[Résumé - Cloud et virtualisation]].

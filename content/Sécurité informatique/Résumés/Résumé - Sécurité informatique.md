@@ -48,4 +48,4 @@ Jamais en clair, jamais en simple SHA-256 → **bcrypt**, **scrypt** ou **Argon2
 > [!warning] JWT
 > Signé mais **pas chiffré** : lisible par tous. Vérifier la signature et la date d'expiration côté serveur.
 
-Cours : [[Chapitre 1 - Cryptographie et sécurité des applications]] · TP : [[TP 1 - Chiffrement et hachage avec OpenSSL]] · sécurité des objets connectés : [[Résumé - IoT]].
+Cours : [[Chapitre 1 - Cryptographie et sécurité des applications]] · TP : [[TP 1 - Chiffrement et hachage avec OpenSSL]] · sécurité des objets connectés : [[Résumé - IoT#Module 13 — Sécurité avancée et conformité|Résumé - IoT, module 13]] et [[TP 6 - Sécuriser MQTT (TLS, mots de passe, ACL)]].

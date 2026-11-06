@@ -109,7 +109,7 @@ predict(modele, newdata = tibble(wt = 3, hp = 120))
 - **p-value** < 0,05 : l'effet est statistiquement significatif.
 - **R²** : la part de la variance expliquée par le modèle (entre 0 et 1).
 
-C'est la même régression que dans le [[Chapitre 1 - Apprentissage supervisé|cours de Machine Learning]], vue ici sous l'angle statistique. Les mesures du [[TP 1 - Capteur connecté avec MQTT|TP d'IoT]] sont un bon terrain d'entraînement.
+C'est la même régression que dans le [[Chapitre 1 - Apprentissage supervisé|cours de Machine Learning]], vue ici sous l'angle statistique. Les mesures du [[TP 7 - Stocker et analyser avec MongoDB|TP 7 d'IoT]] sont un bon terrain d'entraînement.
 
 > [!abstract] À retenir
 > Vecteurs et tibbles · importer avec `read_csv` · transformer avec les verbes de dplyr enchaînés par `|>` · visualiser avec `ggplot(aes()) + geom_…()` · résumer avec `mean`, `sd`, `cor` · modéliser avec `lm`. Fiche : [[Résumé - R et tidyverse]].
