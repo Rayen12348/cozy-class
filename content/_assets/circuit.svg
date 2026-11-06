@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 200" font-family="sans-serif" font-size="14">
+  <rect width="360" height="200" rx="14" fill="#fdf6e3"/>
+  <g fill="none" stroke="#45475a" stroke-width="3" stroke-linecap="round">
+    <path d="M60 50 H150 M210 50 H300 V150 H210 M150 150 H60 V50"/>
+    <rect x="150" y="38" width="60" height="24" rx="4" fill="#fab387"/>
+    <circle cx="180" cy="150" r="22" fill="#89b4fa"/>
+    <path d="M42 85 H78 M50 100 H70" stroke-width="4"/>
+  </g>
+  <text x="168" y="30" fill="#45475a">R</text>
+  <text x="173" y="155" fill="#11111b">A</text>
+  <text x="18" y="97" fill="#45475a">G</text>
+</svg>

@@ -1,0 +1,46 @@
+{
+  "title": "cozy·class",
+  "classe": "2ème année — Génie Informatique",
+  "description": "Cours, TD, TP, corrections et résumés de la classe — tout au même endroit.",
+  "theme": "mocha",
+  "accent": "mauve",
+  "wallpaper": null,
+  "pomodoro": {
+    "focus": 25,
+    "short": 5,
+    "long": 15,
+    "longEvery": 4
+  },
+  "stations": [
+    {
+      "name": "lofi hip hop radio",
+      "by": "Lofi Girl",
+      "type": "youtube",
+      "id": "jfKfPfyJRdk"
+    },
+    {
+      "name": "synthwave radio",
+      "by": "Lofi Girl",
+      "type": "youtube",
+      "id": "4xDzrJKXOOY"
+    },
+    {
+      "name": "lofi",
+      "by": "laut.fm",
+      "type": "stream",
+      "url": "https://lofi.stream.laut.fm/lofi"
+    },
+    {
+      "name": "Mellow Mix",
+      "by": "Radio Paradise",
+      "type": "stream",
+      "url": "https://stream.radioparadise.com/mellow-128"
+    },
+    {
+      "name": "Plaza One",
+      "by": "vaporwave",
+      "type": "stream",
+      "url": "https://radio.plaza.one/mp3"
+    }
+  ]
+}

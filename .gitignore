@@ -1,0 +1,4 @@
+node_modules/
+dist/
+content/.obsidian/workspace*.json
+content/.trash/

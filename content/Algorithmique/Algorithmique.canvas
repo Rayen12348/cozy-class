@@ -1,0 +1,23 @@
+{
+  "nodes": [
+    { "id": "intro", "type": "text", "x": -460, "y": -60, "width": 300, "height": 200, "color": "6",
+      "text": "## Plan de révision 🗺️\nSuis les flèches : **cours → TP → correction**, puis termine par le résumé.\n\n> [!tip] Astuce\n> Fais un pomodoro par carte !" },
+    { "id": "g-cours", "type": "group", "x": -80, "y": -140, "width": 380, "height": 380, "label": "Cours", "color": "5" },
+    { "id": "c1", "type": "file", "file": "Algorithmique/Cours/Chapitre 1 - Complexité.md", "x": -40, "y": -100, "width": 300, "height": 130 },
+    { "id": "c2", "type": "file", "file": "Algorithmique/Cours/Chapitre 2 - Algorithmes de tri.md", "x": -40, "y": 70, "width": 300, "height": 130 },
+    { "id": "tp1", "type": "file", "file": "Algorithmique/TP/TP 1 - Tri par insertion.md", "x": 400, "y": 70, "width": 300, "height": 130, "color": "4" },
+    { "id": "corr1", "type": "file", "file": "Algorithmique/Corrections/Correction TP 1.md", "x": 400, "y": 290, "width": 300, "height": 130 },
+    { "id": "res", "type": "file", "file": "Algorithmique/Résumés/Résumé - Complexité des tris.md", "x": 800, "y": -100, "width": 300, "height": 130, "color": "3" },
+    { "id": "exam", "type": "file", "file": "Algorithmique/Examens/Examen 2025 - Session principale.pdf", "x": 800, "y": 120, "width": 300, "height": 130, "color": "1" },
+    { "id": "link", "type": "link", "url": "https://visualgo.net/fr/sorting", "x": -40, "y": 300, "width": 300, "height": 110 }
+  ],
+  "edges": [
+    { "id": "e1", "fromNode": "c1", "fromSide": "bottom", "toNode": "c2", "toSide": "top" },
+    { "id": "e2", "fromNode": "c2", "fromSide": "right", "toNode": "tp1", "toSide": "left", "label": "pratique" },
+    { "id": "e3", "fromNode": "tp1", "fromSide": "bottom", "toNode": "corr1", "toSide": "top", "label": "corrigé", "color": "4" },
+    { "id": "e4", "fromNode": "c1", "fromSide": "right", "toNode": "res", "toSide": "left", "color": "3" },
+    { "id": "e5", "fromNode": "res", "fromSide": "bottom", "toNode": "exam", "toSide": "top", "label": "s'entraîner", "color": "1" },
+    { "id": "e6", "fromNode": "intro", "fromSide": "right", "toNode": "g-cours", "toSide": "left", "toEnd": "arrow" },
+    { "id": "e7", "fromNode": "c2", "fromSide": "bottom", "toNode": "link", "toSide": "top", "label": "visualiser" }
+  ]
+}
