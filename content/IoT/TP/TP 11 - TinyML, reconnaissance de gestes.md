@@ -5,7 +5,7 @@ tags: [iot, tp, tinyml, machine-learning, scikit-learn]
 ---
 # TP 11 — TinyML : reconnaissance de gestes sur données de capteur
 
-Énoncé complet : [[Fascicule de TP - 12 laboratoires.pdf]], pages 54 à 58 · durée 1 h 30 · cours : [[Résumé - IoT#Module 7 — IA et Machine Learning pour l'AIoT|module 7]] et [[Résumé - IoT#Module 8 — Edge AI et TinyML|module 8]] · avant : [[TP 10 - Flux temps réel avec Kinesis]] · suite : [[TP 12 - Projet Smart Home]] · voir aussi : [[Chapitre 1 - Apprentissage supervisé|cours de Machine Learning]]
+Énoncé complet : [[Fascicule de TP - 12 laboratoires.pdf]], pages 54 à 58 · durée 1 h 30 · cours : [[Résumé - IoT#Module 7 — IA et Machine Learning pour l'AIoT|module 7]] et [[Résumé - IoT#Module 8 — Edge AI et TinyML|module 8]] · avant : [[TP 10 - Flux temps réel avec Kinesis]] · suite : [[TP 12 - Projet Smart Home]] · voir aussi : [[Résumé - Chapitre 1 - Introduction et démarche expérimentale|cours de Machine Learning]]
 
 > [!abstract] En une phrase
 > À partir des 3 axes d'un accéléromètre (x, y, z), on entraîne un **tout petit modèle** qui reconnaît 4 gestes (gauche, droite, haut, bas), assez léger pour tenir sur un microcontrôleur.

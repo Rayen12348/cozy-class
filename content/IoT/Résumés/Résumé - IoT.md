@@ -543,7 +543,7 @@ Les machines de l'usine passent par une conversion de protocole (Lambda), puis p
 
 ## Module 7 — IA et Machine Learning pour l'AIoT
 
-*PDF p. 76–84 · en pratique : [[TP 11 - TinyML, reconnaissance de gestes|TP 11]] · voir aussi : [[Résumé - Machine Learning]]*
+*PDF p. 76–84 · en pratique : [[TP 11 - TinyML, reconnaissance de gestes|TP 11]] · voir aussi : [[Résumé - Chapitre 1 - Introduction et démarche expérimentale|cours de Machine Learning]]*
 
 ### IA, Machine Learning, modèle
 

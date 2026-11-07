@@ -76,7 +76,7 @@ Spark garde les données **en mémoire** entre les étapes : il est bien plus ra
 | Spark Core / RDD | collections distribuées de bas niveau |
 | Spark SQL / DataFrame | tables distribuées, requêtes SQL |
 | Structured Streaming | flux en temps réel |
-| MLlib | machine learning distribué (voir le [[Chapitre 1 - Apprentissage supervisé\|cours de ML]]) |
+| MLlib | machine learning distribué (voir le [[Résumé - Chapitre 1 - Introduction et démarche expérimentale\|cours de ML]]) |
 | GraphX | graphes |
 
 ### Transformations et actions

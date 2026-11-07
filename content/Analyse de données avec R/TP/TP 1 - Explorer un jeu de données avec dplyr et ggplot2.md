@@ -64,7 +64,7 @@ pg |>
 
 ## Bonus
 
-Prédire l'espèce avec un arbre de décision (paquet `rpart`) et comparer avec la démarche du [[TP 1 - Classification avec scikit-learn|TP de Machine Learning]].
+Prédire l'espèce avec un arbre de décision (paquet `rpart`) et comparer avec la démarche train / validation / test du [[Résumé - Chapitre 1 - Introduction et démarche expérimentale#7. La démarche expérimentale|cours de Machine Learning]].
 
 ## À rendre
 

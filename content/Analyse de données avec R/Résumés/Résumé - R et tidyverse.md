@@ -66,4 +66,4 @@ p-value < 0,05 → effet significatif · R² proche de 1 → bon ajustement.
 > [!warning] Les pièges
 > Les indices commencent à 1 · un `NA` contamine les calculs · corrélation ≠ causalité · paradoxe de Simpson (une tendance globale peut s'inverser dans chaque groupe).
 
-Cours : [[Chapitre 1 - Bases de R et du tidyverse]] · TP : [[TP 1 - Explorer un jeu de données avec dplyr et ggplot2]] · modèles prédictifs : [[Résumé - Machine Learning]].
+Cours : [[Chapitre 1 - Bases de R et du tidyverse]] · TP : [[TP 1 - Explorer un jeu de données avec dplyr et ggplot2]] · modèles prédictifs : [[Résumé - Chapitre 1 - Introduction et démarche expérimentale|Machine Learning]].
