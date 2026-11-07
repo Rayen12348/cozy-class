@@ -150,6 +150,17 @@ export const radio = {
 
 const eq = () => '<span class="eq"><i></i><i></i><i></i><i></i></span>';
 
+// Link to the Metrolist Web app (site.config.json → musicApp). It runs on the
+// student's own computer, so the link only opens when the app is started there.
+export const musicApp = () => (vault.site?.musicApp?.url ? vault.site.musicApp : null);
+
+export function musicAppLink() {
+  const app = musicApp();
+  if (!app) return '';
+  return `<a class="btn sm wide music-app" href="${esc(app.url)}" target="_blank" rel="noopener" title="${esc(app.hint ?? '')}">${icon('music')}<span>${esc(app.name ?? 'Metrolist')} <span class="muted">· YouTube Music</span></span>${icon('external')}</a>
+    ${app.hint ? `<p class="music-app-hint muted">${esc(app.hint)}</p>` : ''}`;
+}
+
 // ── Floating mini player (keeps the YouTube iframe alive across pages) ──
 export function mountDock(el) {
   el.className = 'dock window';

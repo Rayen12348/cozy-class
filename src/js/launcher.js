@@ -1,7 +1,7 @@
 import { vault, items, matieres, typeOf, itemIcon, matiereEmoji, cssColor, recent, loadSearch, progress } from './data.js';
 import { THEMES, ACCENTS, applyTheme, current } from './themes.js';
 import { pomodoro } from './pomodoro.js';
-import { radio } from './music.js';
+import { radio, musicApp } from './music.js';
 import { ambience, SOUNDS } from './audio.js';
 import { icon } from './icons.js';
 import { esc, fuzzy, highlight, fold, go, store } from './util.js';
@@ -59,6 +59,7 @@ function actionEntries() {
     a('Pomodoro : passer à la suite', 'skip', () => pomodoro.skip(), 'timer'),
     a(radio.playing ? 'Musique : pause' : 'Musique : lecture', 'music', () => radio.toggle(), 'radio lofi play'),
     a('Musique : station suivante', 'skip', () => radio.next(), 'radio lofi next'),
+    ...(musicApp() ? [a(`Ouvrir ${musicApp().name ?? 'Metrolist'} (YouTube Music)`, 'music', () => window.open(musicApp().url, '_blank', 'noopener'), 'metrolist youtube music chanson spotify playlist', 'sur ton ordi')] : []),
     ...SOUNDS.map((s) => a(`Ambiance : ${s.label}${ambience.isOn(s.id) ? ' (couper)' : ''}`, s.icon, () => ambience.toggle(s.id), 'son bruit ambiance')),
     a('Ambiance : tout couper', 'mute', () => ambience.stopAll(), 'silence son'),
     a('Note au hasard', 'dice', () => {

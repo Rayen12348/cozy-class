@@ -1,7 +1,7 @@
 import { vault, matiereEmoji, cssColor } from './data.js';
 import { THEMES, ACCENTS, applyTheme, current, themeEvents } from './themes.js';
 import { mountPill, mountTimer } from './pomodoro.js';
-import { mountMusicPill, mountRadio, mountMixer } from './music.js';
+import { mountMusicPill, mountRadio, mountMixer, musicAppLink, musicApp } from './music.js';
 import { icon } from './icons.js';
 import { esc, store, clamp } from './util.js';
 
@@ -57,6 +57,7 @@ function pomoPanel(el, keep) {
 
 function musicPanel(el, keep) {
   el.innerHTML = `<div class="pop-title">${icon('radio')} radio</div><div class="radio"></div>
+    ${musicApp() ? `<div class="pop-title">${icon('music')} tes chansons</div>${musicAppLink()}` : ''}
     <div class="pop-title">${icon('waves')} ambiance</div><div class="mixer"></div>`;
   keep(mountRadio(el.querySelector('.radio')));
   keep(mountMixer(el.querySelector('.mixer')));

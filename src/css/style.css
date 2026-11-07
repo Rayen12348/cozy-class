@@ -829,6 +829,9 @@ details.callout[open] > summary::after { transform: rotate(90deg); }
 .dock-title { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dock-sub { font-size: 11px; color: var(--overlay1); }
 .stations { display: grid; gap: 3px; }
+.music-app { margin-top: 10px; }
+.music-app span { flex: 1; text-align: left; }
+.music-app-hint { font-size: 11px; line-height: 1.4; margin: 6px 2px 0; }
 .station { display: flex; align-items: center; gap: 12px; padding: 7px 10px; border-radius: 10px; text-align: left; color: var(--subtext0); }
 .station:hover { background: var(--surface0); color: var(--text); }
 .station.on { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }

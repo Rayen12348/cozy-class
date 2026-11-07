@@ -82,6 +82,20 @@ Each matière gets an auto-generated **carte** (canvas) laid out by type. Any `.
 
 The ambient sounds (rain, fire, waves, wind, brown noise) are generated in the browser, so there are no audio files to host.
 
+- `musicApp`: link to Metrolist Web, the YouTube Music app that runs on your computer. `{ "name": "Metrolist", "url": "http://localhost:4747", "hint": "…" }`. It shows up in the music popover, the study room and the launcher (`ctrl k` → "Ouvrir Metrolist"). Remove the key to hide it.
+
+## Metrolist (YouTube Music)
+
+The radio plays fixed stations; for your own songs, playlists and synced lyrics there is **Metrolist Web** in `~/Projects/metrolist`, a desktop remake of the Metrolist Android app. It can't live on GitHub Pages (browsers can't call YouTube Music from a website), so it runs on your computer and cozy·class links to it:
+
+```sh
+cd ~/Projects/metrolist && npm install && scripts/install-desktop.sh   # once
+metrolist-web                                                           # open it
+scripts/install-desktop.sh --service   # optional: start it at login so the cozy·class link always works
+```
+
+Classmates who don't run it just get a link that doesn't open.
+
 ## Putting it online for the class (GitHub Pages)
 
 1. Create a GitHub repo and push this folder to its `main` branch.
