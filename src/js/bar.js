@@ -1,7 +1,8 @@
 import { vault, matiereEmoji, cssColor } from './data.js';
 import { THEMES, ACCENTS, applyTheme, current, themeEvents } from './themes.js';
 import { mountPill, mountTimer } from './pomodoro.js';
-import { mountMusicPill, mountRadio, mountMixer, musicAppLink, musicApp } from './music.js';
+import { mountMusicPill, mountRadio, mountMixer } from './music.js';
+import { songs, mountSongs } from './songs.js';
 import { icon } from './icons.js';
 import { esc, store, clamp } from './util.js';
 
@@ -57,10 +58,24 @@ function pomoPanel(el, keep) {
 
 function musicPanel(el, keep) {
   el.innerHTML = `<div class="pop-title">${icon('radio')} radio</div><div class="radio"></div>
-    ${musicApp() ? `<div class="pop-title">${icon('music')} tes chansons</div>${musicAppLink()}` : ''}
     <div class="pop-title">${icon('waves')} ambiance</div><div class="mixer"></div>`;
   keep(mountRadio(el.querySelector('.radio')));
   keep(mountMixer(el.querySelector('.mixer')));
+}
+
+function songsPanel(el, keep) {
+  el.innerHTML = `<div class="pop-title">${icon('headphones')} chansons <span class="pop-sub">YouTube Music</span></div><div class="songs-host"></div>`;
+  keep(mountSongs(el.querySelector('.songs-host'), { autofocus: true }));
+}
+
+function mountSongsButton(el) {
+  const update = () => {
+    const on = songs.active && songs.playing;
+    el.classList.toggle('playing', on);
+    el.innerHTML = on ? '<span class="eq"><i></i><i></i><i></i><i></i></span>' : icon('headphones');
+  };
+  update();
+  songs.events.on(update);
 }
 
 function themePanel(el, keep) {
@@ -113,12 +128,14 @@ export function mountBar(el, { onMenu, onSearch }) {
     <div class="bar-group bar-right">
       <button class="mod" data-search title="Rechercher (Ctrl K)">${icon('search')}<span class="hide-sm">lancer</span><kbd class="hide-sm">ctrl k</kbd></button>
       <button class="mod pomo-pill" data-pop="pomo"></button>
+      ${songs.enabled() ? '<button class="mod icon-mod songs-btn" data-pop="songs" title="Chansons : cherche et joue ce que tu veux (c)"></button>' : ''}
       <button class="mod music-pill" data-pop="music" title="Musique & ambiance"></button>
       <button class="mod icon-mod" data-pop="theme" title="Thème">${icon('palette')}</button>
     </div>`;
 
   mountPill(el.querySelector('.pomo-pill'));
   mountMusicPill(el.querySelector('.music-pill'));
+  if (songs.enabled()) mountSongsButton(el.querySelector('.songs-btn'));
 
   const clock = el.querySelector('.mod-clock');
   const tick = () => {
@@ -128,7 +145,7 @@ export function mountBar(el, { onMenu, onSearch }) {
   tick();
   setInterval(tick, 10000);
 
-  const panels = { pomo: [pomoPanel, 'pop-pomo'], music: [musicPanel, 'pop-music'], theme: [themePanel, 'pop-theme'] };
+  const panels = { pomo: [pomoPanel, 'pop-pomo'], music: [musicPanel, 'pop-music'], songs: [songsPanel, 'pop-songs'], theme: [themePanel, 'pop-theme'] };
   el.addEventListener('click', (e) => {
     const b = e.target.closest('button');
     if (!b) return;
@@ -136,6 +153,12 @@ export function mountBar(el, { onMenu, onSearch }) {
     else if (b.hasAttribute('data-menu')) onMenu();
     else if (b.hasAttribute('data-search')) onSearch();
   });
+}
+
+// Opens the "chansons" popover (from the launcher, the dock or the c key).
+export function openSongs() {
+  const b = document.querySelector('#bar .songs-btn');
+  if (b && !b.classList.contains('open')) b.click();
 }
 
 export function setWorkspace(id) {

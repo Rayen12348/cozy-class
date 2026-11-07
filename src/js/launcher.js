@@ -1,7 +1,8 @@
 import { vault, items, matieres, typeOf, itemIcon, matiereEmoji, cssColor, recent, loadSearch, progress } from './data.js';
 import { THEMES, ACCENTS, applyTheme, current } from './themes.js';
 import { pomodoro } from './pomodoro.js';
-import { radio, musicApp } from './music.js';
+import { radio } from './music.js';
+import { songs } from './songs.js';
 import { ambience, SOUNDS } from './audio.js';
 import { icon } from './icons.js';
 import { esc, fuzzy, highlight, fold, go, store } from './util.js';
@@ -57,9 +58,13 @@ function actionEntries() {
     a(pomodoro.running ? 'Pomodoro : pause' : 'Pomodoro : démarrer', 'timer', () => pomodoro.toggle(), 'timer focus', 'p'),
     a('Pomodoro : réinitialiser', 'reset', () => pomodoro.reset(), 'timer'),
     a('Pomodoro : passer à la suite', 'skip', () => pomodoro.skip(), 'timer'),
+    ...(songs.enabled() ? [a('Chansons : chercher une chanson', 'headphones', () => hooks.openSongs?.(), 'chanson musique youtube music metrolist chercher jouer', 'c')] : []),
+    ...(songs.active && songs.current ? [
+      a(songs.playing ? 'Chanson : pause' : 'Chanson : lecture', 'headphones', () => songs.toggle(), 'musique play pause', 'm'),
+      a('Chanson : suivante', 'skip', () => songs.next(), 'musique next suivant'),
+    ] : []),
     a(radio.playing ? 'Musique : pause' : 'Musique : lecture', 'music', () => radio.toggle(), 'radio lofi play'),
     a('Musique : station suivante', 'skip', () => radio.next(), 'radio lofi next'),
-    ...(musicApp() ? [a(`Ouvrir ${musicApp().name ?? 'Metrolist'} (YouTube Music)`, 'music', () => window.open(musicApp().url, '_blank', 'noopener'), 'metrolist youtube music chanson spotify playlist', 'sur ton ordi')] : []),
     ...SOUNDS.map((s) => a(`Ambiance : ${s.label}${ambience.isOn(s.id) ? ' (couper)' : ''}`, s.icon, () => ambience.toggle(s.id), 'son bruit ambiance')),
     a('Ambiance : tout couper', 'mute', () => ambience.stopAll(), 'silence son'),
     a('Note au hasard', 'dice', () => {
@@ -97,10 +102,15 @@ function compute() {
   } else {
     const kindBoost = { matiere: 25, note: 10, action: 0 };
     entries = pool
-      .map((e) => ({ ...e, score: fuzzy(q, e.keys) + (kindBoost[e.kind] ?? 0) + (fuzzy(q, e.label) > 0 ? 30 : 0) }))
-      .filter((e) => e.score > 0)
+      .map((e) => ({ ...e, match: fuzzy(q, e.keys) }))
+      .filter((e) => e.match > 0) // (the kind bonus used to let non-matching entries through)
+      .map((e) => ({ ...e, score: e.match + (kindBoost[e.kind] ?? 0) + (fuzzy(q, e.label) > 0 ? 30 : 0) }))
       .sort((x, y) => y.score - x.score)
       .slice(0, 60);
+    // Type anything and press Enter: plays it (first YouTube Music result).
+    if (q.length >= 2 && songs.enabled() && (mode === 'drun' || mode === 'run')) {
+      entries.push({ kind: 'action', group: 'chansons', label: `Jouer « ${q} »`, sub: 'YouTube Music', icon: icon('headphones'), color: 'var(--accent)', run: () => songs.playQuery(q) });
+    }
     if (q.length >= 3 && (mode === 'drun' || mode === 'notes')) contentSearch(q);
   }
   sel = 0;

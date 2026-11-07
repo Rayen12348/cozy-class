@@ -2,7 +2,8 @@ import { loadVault, vault, items, matieres, canvases } from './data.js';
 import { initTheme } from './themes.js';
 import { pomodoro } from './pomodoro.js';
 import { radio, mountDock } from './music.js';
-import { mountBar, setWorkspace, applyReading, closePopover } from './bar.js';
+import { mountBar, setWorkspace, applyReading, closePopover, openSongs } from './bar.js';
+import { songs } from './songs.js';
 import { mountSidebar, setActive } from './sidebar.js';
 import { initLauncher, openLauncher, toggleLauncher, launcherOpen } from './launcher.js';
 import { renderHome } from './views/home.js';
@@ -125,7 +126,8 @@ function shortcuts(e) {
     e: () => go('#/etude'),
     h: () => go('#/'),
     p: () => pomodoro.toggle(),
-    m: () => radio.toggle(),
+    m: () => (songs.active && songs.current ? songs.toggle() : radio.toggle()),
+    c: () => openSongs(),
   };
   if (actions[e.key]) {
     e.preventDefault();
@@ -154,7 +156,7 @@ async function boot() {
   mountBar($('#bar'), { onMenu: toggleSidebar, onSearch: () => openLauncher() });
   mountSidebar(sidebar);
   mountDock($('#dock'));
-  initLauncher($('#launcher'), { toggleSidebar, rename });
+  initLauncher($('#launcher'), { toggleSidebar, rename, openSongs });
 
   $('.scrim').addEventListener('click', () => document.body.classList.remove('side-open'));
   document.addEventListener('keydown', shortcuts);

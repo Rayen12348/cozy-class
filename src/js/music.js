@@ -2,6 +2,7 @@ import { vault } from './data.js';
 import { store, emitter, toast, esc } from './util.js';
 import { icon } from './icons.js';
 import { ambience, SOUNDS } from './audio.js';
+import { songs, cover, artists } from './songs.js';
 
 let audioEl = null;
 let yt = null;
@@ -46,6 +47,8 @@ export const radio = {
 
   async play(index = this.index) {
     if (!this.stations.length) return;
+    songs.pause();
+    songs.active = false;
     this.index = ((index % this.stations.length) + this.stations.length) % this.stations.length;
     store.set('radio.index', this.index);
     const st = this.station;
@@ -148,20 +151,15 @@ export const radio = {
   },
 };
 
+// Only one music source at a time: starting a song pauses the radio.
+songs.beforePlay = () => {
+  if (radio.playing || radio.loading) radio.pause();
+};
+
 const eq = () => '<span class="eq"><i></i><i></i><i></i><i></i></span>';
 
-// Link to the Metrolist Web app (site.config.json → musicApp). It runs on the
-// student's own computer, so the link only opens when the app is started there.
-export const musicApp = () => (vault.site?.musicApp?.url ? vault.site.musicApp : null);
-
-export function musicAppLink() {
-  const app = musicApp();
-  if (!app) return '';
-  return `<a class="btn sm wide music-app" href="${esc(app.url)}" target="_blank" rel="noopener" title="${esc(app.hint ?? '')}">${icon('music')}<span>${esc(app.name ?? 'Metrolist')} <span class="muted">· YouTube Music</span></span>${icon('external')}</a>
-    ${app.hint ? `<p class="music-app-hint muted">${esc(app.hint)}</p>` : ''}`;
-}
-
 // ── Floating mini player (keeps the YouTube iframe alive across pages) ──
+// It shows the radio, or the song playing from the "chansons" panel.
 export function mountDock(el) {
   el.className = 'dock window';
   el.hidden = true;
@@ -169,47 +167,77 @@ export function mountDock(el) {
     <div class="dock-video"><div id="yt-player"></div></div>
     <div class="dock-body">
       ${eq()}
-      <div class="dock-info"><div class="dock-title"></div><div class="dock-sub"></div></div>
-      <button class="icon-btn" data-act="prev" title="Station précédente">${icon('prev')}</button>
+      <img class="dock-art" alt="" referrerpolicy="no-referrer" hidden>
+      <div class="dock-info" data-act="open"><div class="dock-title"></div><div class="dock-sub"></div></div>
+      <button class="icon-btn" data-act="prev" title="Précédent">${icon('prev')}</button>
       <button class="icon-btn accent" data-act="toggle"></button>
-      <button class="icon-btn" data-act="next" title="Station suivante">${icon('skip')}</button>
+      <button class="icon-btn" data-act="next" title="Suivant">${icon('skip')}</button>
       <button class="icon-btn" data-act="min" title="Réduire">${icon('minimize')}</button>
       <button class="icon-btn" data-act="close" title="Fermer">${icon('x')}</button>
-    </div>`;
+    </div>
+    <div class="dock-progress"><i></i></div>`;
   if (store.get('dock.min', false)) el.classList.add('min');
+  const art = el.querySelector('.dock-art');
+  const bar = el.querySelector('.dock-progress i');
   el.addEventListener('click', (e) => {
     const act = e.target.closest('[data-act]')?.dataset.act;
+    if (!act) return;
     if (act === 'min') {
       el.classList.toggle('min');
       store.set('dock.min', el.classList.contains('min'));
       update();
-    } else if (act) radio[act]();
+    } else if (songs.active && songs.current) {
+      if (act === 'open') document.querySelector('#bar .songs-btn')?.click();
+      else songs[act]?.();
+    } else if (act !== 'open') radio[act]();
   });
   const update = () => {
+    const song = songs.active ? songs.current : null;
+    el.hidden = !song && !radio.started;
+    el.classList.toggle('song', !!song);
+    art.hidden = !song;
+    el.querySelector('[data-act="min"]').innerHTML = icon(el.classList.contains('min') ? 'maximize' : 'minimize');
+    if (song) {
+      el.classList.remove('yt');
+      el.classList.toggle('playing', songs.playing);
+      if (art.dataset.id !== song.id) {
+        art.dataset.id = song.id;
+        art.src = cover(song).replaceAll('&amp;', '&');
+      }
+      el.querySelector('.dock-title').textContent = song.title;
+      el.querySelector('.dock-sub').textContent = songs.loading ? 'chargement…' : artists(song);
+      el.querySelector('[data-act="toggle"]').innerHTML = icon(songs.playing ? 'pause' : 'play');
+      return;
+    }
     const st = radio.station;
-    el.hidden = !radio.started;
     if (!st) return;
     el.classList.toggle('yt', st.type === 'youtube');
     el.classList.toggle('playing', radio.playing);
     el.querySelector('.dock-title').textContent = st.name;
     el.querySelector('.dock-sub').textContent = radio.loading ? 'chargement…' : st.by ?? '';
     el.querySelector('[data-act="toggle"]').innerHTML = icon(radio.playing || radio.loading ? 'pause' : 'play');
-    el.querySelector('[data-act="min"]').innerHTML = icon(el.classList.contains('min') ? 'maximize' : 'minimize');
   };
   update();
   radio.events.on(update);
+  songs.events.on(update);
+  songs.tick.on(() => {
+    bar.style.width = songs.duration ? `${(songs.time / songs.duration) * 100}%` : '0';
+  });
 }
 
 export function mountMusicPill(el) {
   const update = () => {
     const active = SOUNDS.filter((s) => ambience.isOn(s.id));
-    el.classList.toggle('playing', radio.playing);
-    el.innerHTML = `${radio.playing ? eq() : icon('music')}<span class="music-name hide-sm">${radio.playing ? esc(radio.station.name) : 'musique'}</span>${active.map((s) => `<span class="amb-dot" style="--c:var(--${s.color})">${icon(s.icon)}</span>`).join('')}`;
+    const song = songs.active && songs.playing ? songs.current : null;
+    const on = radio.playing || !!song;
+    el.classList.toggle('playing', on);
+    el.innerHTML = `${on ? eq() : icon('music')}<span class="music-name hide-sm">${song ? esc(song.title) : radio.playing ? esc(radio.station.name) : 'musique'}</span>${active.map((s) => `<span class="amb-dot" style="--c:var(--${s.color})">${icon(s.icon)}</span>`).join('')}`;
   };
   update();
   const a = radio.events.on(update);
   const b = ambience.events.on(update);
-  return () => (a(), b());
+  const c = songs.events.on(update);
+  return () => (a(), b(), c());
 }
 
 export function mountRadio(el) {

@@ -829,9 +829,47 @@ details.callout[open] > summary::after { transform: rotate(90deg); }
 .dock-title { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dock-sub { font-size: 11px; color: var(--overlay1); }
 .stations { display: grid; gap: 3px; }
-.music-app { margin-top: 10px; }
-.music-app span { flex: 1; text-align: left; }
-.music-app-hint { font-size: 11px; line-height: 1.4; margin: 6px 2px 0; }
+
+/* chansons (search + play any song, through Metrolist Web on this computer) */
+.songs-btn.playing { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 55%, var(--surface0)); }
+.pop.pop-songs { width: 390px; }
+.pop .pop-sub { margin-left: auto; text-transform: none; letter-spacing: 0; color: var(--overlay0); }
+.songs { display: grid; gap: 10px; }
+.song-search { display: flex; align-items: center; gap: 8px; padding: 0 12px; border-radius: var(--radius-sm); background: var(--mantle); border: 2px solid var(--surface0); color: var(--overlay1); transition: border-color .2s; }
+.song-search:focus-within { border-color: var(--accent); color: var(--accent); }
+.song-search input { flex: 1; min-width: 0; padding: 9px 0; background: none; border: 0; outline: none; color: var(--text); font: inherit; }
+.song-search input::-webkit-search-cancel-button { filter: grayscale(1); }
+.song-now { display: grid; gap: 8px; padding: 10px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 9%, var(--surface0)); }
+.song-head { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.song-cover { width: 52px; height: 52px; border-radius: 9px; object-fit: cover; flex-shrink: 0; background: var(--surface1); }
+.song-text { display: grid; min-width: 0; text-align: left; }
+.song-text b, .song-text small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.song-text small { color: var(--overlay1); font-size: 11px; }
+.song-ctrl { display: flex; align-items: center; gap: 4px; }
+.song-time { margin-left: auto; font-size: 11px; color: var(--overlay1); font-variant-numeric: tabular-nums; }
+.song-now .vol-row { margin-top: 0; }
+.song-list { display: grid; gap: 2px; max-height: 340px; overflow-y: auto; }
+.study .song-list { max-height: 420px; }
+.song-row { display: flex; align-items: center; gap: 10px; padding: 5px 8px; border-radius: 10px; color: var(--subtext0); min-width: 0; }
+.song-row:hover { background: var(--surface0); color: var(--text); }
+.song-row.on { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+.song-art { position: relative; width: 36px; height: 36px; border-radius: 7px; overflow: hidden; flex-shrink: 0; background: var(--surface0); }
+.song-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.song-eq { position: absolute; inset: 0; display: grid; place-items: center; background: rgb(0 0 0 / .55); color: #fff; }
+.song-eq.paused .eq i { animation-play-state: paused; }
+.song-row .song-text { flex: 1; }
+.song-row .song-text b { font-weight: 600; }
+.song-dur { font-size: 11px; color: var(--overlay0); font-variant-numeric: tabular-nums; }
+.song-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: .12em; color: var(--overlay1); margin: 2px 2px 4px; }
+.song-msg { display: grid; gap: 8px; justify-items: start; padding: 6px 2px; margin: 0; }
+.song-msg p { margin: 0; line-height: 1.5; }
+.dock-art { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; margin-right: 8px; flex-shrink: 0; }
+.dock.song .eq, .dock.song [data-act="min"] { display: none; }
+.dock.song .dock-sub { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dock-info[data-act] { cursor: pointer; }
+.dock-progress { height: 3px; background: var(--surface0); display: none; }
+.dock-progress i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .3s linear; }
+.dock.song .dock-progress { display: block; }
 .station { display: flex; align-items: center; gap: 12px; padding: 7px 10px; border-radius: 10px; text-align: left; color: var(--subtext0); }
 .station:hover { background: var(--surface0); color: var(--text); }
 .station.on { background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }

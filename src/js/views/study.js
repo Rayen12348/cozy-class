@@ -1,6 +1,7 @@
 import { matieres, matiereEmoji } from '../data.js';
 import { mountTimer, mountSettings, stats, pomodoro } from '../pomodoro.js';
-import { mountMixer, mountRadio, musicAppLink } from '../music.js';
+import { mountMixer, mountRadio } from '../music.js';
+import { songs, mountSongs } from '../songs.js';
 import { ambience } from '../audio.js';
 import { color } from '../themes.js';
 import { icon } from '../icons.js';
@@ -146,7 +147,8 @@ export function renderStudy(view) {
       <p class="quote muted">${QUOTES[Math.floor(Math.random() * QUOTES.length)]}</p>
     </section>
     <section class="card"><div class="panel-title">${icon('waves')} ambiance</div><div class="mixer"></div></section>
-    <section class="card"><div class="panel-title">${icon('radio')} radio lofi</div><div class="radio"></div>${musicAppLink()}</section>
+    <section class="card"><div class="panel-title">${icon('radio')} radio lofi</div><div class="radio"></div></section>
+    ${songs.enabled() ? `<section class="card"><div class="panel-title">${icon('headphones')} chansons</div><div class="songs-host"></div></section>` : ''}
     <section class="card"><div class="panel-title">${icon('list')} pour cette session</div><div class="todo-host"></div></section>
     <section class="card"><div class="panel-title">${icon('sparkles')} statistiques</div><div class="stats-host"></div></section>
     <details class="card study-settings"><summary class="panel-title">${icon('timer')} réglages du pomodoro ${icon('chevron', 'chev')}</summary><div class="settings-host"></div></details>
@@ -156,6 +158,7 @@ export function renderStudy(view) {
     mountTimer(view.querySelector('.timer-host')),
     mountMixer(view.querySelector('.mixer')),
     mountRadio(view.querySelector('.radio')),
+    songs.enabled() ? mountSongs(view.querySelector('.songs-host')) : null,
     mountStats(view.querySelector('.stats-host')),
   ];
   mountTodos(view.querySelector('.todo-host'));

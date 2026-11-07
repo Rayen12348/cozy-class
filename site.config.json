@@ -7,8 +7,7 @@
   "wallpaper": null,
   "musicApp": {
     "name": "Metrolist",
-    "url": "http://localhost:4747",
-    "hint": "YouTube Music sur ton ordi : lance Metrolist Web (metrolist-web) avant d'ouvrir le lien"
+    "url": "http://localhost:4747"
   },
   "pomodoro": {
     "focus": 25,

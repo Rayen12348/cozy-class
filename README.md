@@ -82,19 +82,21 @@ Each matière gets an auto-generated **carte** (canvas) laid out by type. Any `.
 
 The ambient sounds (rain, fire, waves, wind, brown noise) are generated in the browser, so there are no audio files to host.
 
-- `musicApp`: link to Metrolist Web, the YouTube Music app that runs on your computer. `{ "name": "Metrolist", "url": "http://localhost:4747", "hint": "…" }`. It shows up in the music popover, the study room and the launcher (`ctrl k` → "Ouvrir Metrolist"). Remove the key to hide it.
+- `musicApp`: address of [Metrolist Web](https://github.com/MetrolistGroup/Metrolist) running on your computer, `{ "name": "Metrolist", "url": "http://localhost:4747" }`. It turns on the **chansons** panel (below). Remove the key to hide it.
 
-## Metrolist (YouTube Music)
+## Chansons (play any song)
 
-The radio plays fixed stations; for your own songs, playlists and synced lyrics there is **Metrolist Web** in `~/Projects/metrolist`, a desktop remake of the Metrolist Android app. It can't live on GitHub Pages (browsers can't call YouTube Music from a website), so it runs on your computer and cozy·class links to it:
+The headphones icon in the top bar (or `c`) opens a panel where you search any song and play it right here: it keeps playing while you move between pages, similar songs follow automatically, and the floating player at the bottom shows it. The study room has the same panel. In the launcher (`ctrl k`), type a song and pick « Jouer … » to play it directly. Starting the radio pauses the song and vice versa.
+
+Search and audio come from **Metrolist Web**, a small app in `~/Projects/metrolist` that must run on the same computer (a website alone can't reach YouTube Music). It only lets this site search and play; your library stays private.
 
 ```sh
 cd ~/Projects/metrolist && npm install && scripts/install-desktop.sh   # once
-metrolist-web                                                           # open it
-scripts/install-desktop.sh --service   # optional: start it at login so the cozy·class link always works
+metrolist-web --server                  # start it in the background
+scripts/install-desktop.sh --service    # optional: start it at every login
 ```
 
-Classmates who don't run it just get a link that doesn't open.
+If it isn't running, the panel says so. Chrome may ask once whether this site may access apps on your device: allow it.
 
 ## Putting it online for the class (GitHub Pages)
 
@@ -119,6 +121,7 @@ Each student's progress (notes marked *vu*, ticked tasks), pomodoro stats, to-do
 | `Ctrl B` | toggle the sidebar |
 | `g` / `e` / `h` | graph / study room / home |
 | `p` / `m` | start or pause the pomodoro / music |
+| `c` | chansons: search and play any song |
 
 ## Project layout
 
