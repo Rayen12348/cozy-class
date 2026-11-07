@@ -33,8 +33,23 @@ async function api(path) {
   }
 }
 
+// Chrome (and others) ask once before a public website may talk to apps on
+// this computer ("Local network access"). Local copies of the site skip it.
+const isPublic = () => !/^(localhost|127\.|\[::1\])/.test(location.hostname);
+async function accessState() {
+  if (!isPublic() || !navigator.permissions) return 'granted';
+  for (const name of ['loopback-network', 'local-network-access', 'local-network']) {
+    try {
+      return (await navigator.permissions.query({ name })).state;
+    } catch { /* this browser doesn't know that name */ }
+  }
+  return 'granted'; // no such protection in this browser
+}
+
 let searchSeq = 0;
 let failures = 0;
+let watchTimer = null;
+let mounted = 0;
 
 export const songs = {
   events: emitter(), // state changes (results, track, play/pause)
@@ -43,6 +58,7 @@ export const songs = {
   query: store.get('songs.query', ''),
   results: [],
   status: 'idle', // idle | searching | offline | error
+  access: 'granted', // browser permission to reach this computer: granted | prompt | denied
   error: '',
   queue: [],
   index: -1,
@@ -93,6 +109,28 @@ export const songs = {
     this.emit();
   },
 
+  async checkAccess() {
+    this.access = await accessState();
+    this.emit();
+  },
+
+  // Pings the music server. The first time on the public site, this is what
+  // makes the browser ask for permission, so it only runs after a click.
+  async connect() {
+    try {
+      await api('/api/ping');
+      if (this.status === 'offline') this.status = 'idle';
+      stopWatch();
+      await this.checkAccess();
+      if (this.query && !this.results.length) return this.search(this.query);
+    } catch (e) {
+      this.status = e.offline ? 'offline' : 'error';
+      this.error = e.message;
+      await this.checkAccess();
+    }
+    this.emit();
+  },
+
   // Play a song, then keep going with similar songs (YouTube Music radio).
   play(track) {
     this.queue = [track];
@@ -111,7 +149,7 @@ export const songs = {
   async playQuery(q) {
     await this.search(q);
     if (this.results[0]) this.play(this.results[0]);
-    else if (this.status === 'offline') toast('Lance Metrolist Web sur ton ordi pour jouer des chansons', { icon: icon('headphones') });
+    else if (this.status === 'offline') toast('Le lecteur de musique ne répond pas : ouvre le panneau chansons (touche c) pour voir quoi faire', { icon: icon('headphones') });
     else toast(`Rien trouvé pour « ${q} »`, { icon: icon('headphones') });
   },
 
@@ -177,6 +215,19 @@ export const songs = {
     this.emit();
   },
 };
+
+// While the music server is down, check every few seconds and reconnect by itself.
+function startWatch() {
+  if (watchTimer) return;
+  watchTimer = setInterval(() => {
+    if (!mounted || songs.status !== 'offline' || songs.access !== 'granted') return stopWatch();
+    songs.connect();
+  }, 4000);
+}
+function stopWatch() {
+  clearInterval(watchTimer);
+  watchTimer = null;
+}
 
 function load() {
   const t = songs.current;
@@ -264,7 +315,7 @@ export function mountSongs(el, { autofocus = false } = {}) {
     if (!b) return;
     if (b.dataset.result != null) songs.play(songs.results[Number(b.dataset.result)]);
     else if (b.dataset.queue != null) songs.jump(Number(b.dataset.queue));
-    else if (b.dataset.act === 'retry') songs.search(input.value);
+    else if (b.dataset.act === 'retry' || b.dataset.act === 'connect') songs.connect();
     else if (b.dataset.act) songs[b.dataset.act]();
   });
   el.addEventListener('input', (e) => {
@@ -301,9 +352,17 @@ export function mountSongs(el, { autofocus = false } = {}) {
   const renderList = () => {
     if (songs.status === 'searching') {
       list.innerHTML = '<p class="muted small song-msg">recherche…</p>';
+    } else if (songs.access === 'prompt' && (songs.status === 'offline' || (!songs.current && !songs.results.length))) {
+      list.innerHTML = `<div class="song-msg"><p class="small">Les chansons passent par le lecteur de musique de ton ordi. Ton navigateur va demander <b>une seule fois</b> si ce site peut accéder aux applis de cet appareil : clique sur <b>Autoriser</b>.</p>
+        <button class="btn sm primary" data-act="connect">${icon('headphones')} activer les chansons</button></div>`;
+    } else if (songs.status === 'offline' && songs.access === 'denied') {
+      list.innerHTML = `<div class="song-msg"><p class="small">Ton navigateur bloque l'accès au lecteur de musique de ton ordi.</p>
+        <p class="muted small">Clique sur l'icône de réglages à gauche de l'adresse du site, mets <b>Accès au réseau local</b> (ou « applis et services de cet appareil ») sur <b>Autoriser</b>, puis recharge la page.</p>
+        <button class="btn sm" data-act="retry">${icon('reset')} réessayer</button></div>`;
     } else if (songs.status === 'offline') {
-      list.innerHTML = `<div class="song-msg"><p class="small">Les chansons viennent de <b>Metrolist Web</b>, qui doit tourner sur ton ordi.</p>
-        <p class="muted small">Lance-le avec <code>metrolist-web</code> (ou depuis ton menu d'applis), puis réessaie. Si le navigateur demande l'accès aux applis de cet appareil, clique sur Autoriser.</p>
+      startWatch();
+      list.innerHTML = `<div class="song-msg"><p class="small">Le lecteur de musique de ton ordi n'est pas démarré.</p>
+        <p class="muted small">Démarre-le en arrière-plan (aucune fenêtre ne s'ouvre) : <code>metrolist-web --server</code>. Le panneau se reconnecte tout seul dès qu'il tourne.</p>
         <button class="btn sm" data-act="retry">${icon('reset')} réessayer</button></div>`;
     } else if (songs.status === 'error') {
       list.innerHTML = `<div class="song-msg"><p class="small">${esc(songs.error)}</p><button class="btn sm" data-act="retry">${icon('reset')} réessayer</button></div>`;
@@ -325,7 +384,14 @@ export function mountSongs(el, { autofocus = false } = {}) {
   if (autofocus) requestAnimationFrame(() => input.focus());
   const offA = songs.events.on(render);
   const offB = songs.tick.on(renderTime);
+  mounted++;
+  // Find out straight away whether music works here (without triggering the
+  // browser's permission prompt, which waits for the "activer" button).
+  songs.checkAccess().then(() => {
+    if (songs.access === 'granted' && !songs.current) songs.connect();
+  });
   return () => {
+    mounted--;
     offA();
     offB();
   };
